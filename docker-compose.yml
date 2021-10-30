@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  zen-api:
+    build: ./
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    networks:
+      - fullstack
+    environment:
+      - PGHOST=db
+      - PGDATABASE=postgres
+      - PGUSER=postgres
+      - PGPASSWORD=postgres
+  db:
+    restart: always
+    image: library/postgres:latest
+    volumes:
+      - ./.database/postgres/data:/var/lib/postgressql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 5432:5432
+    networks:
+      - fullstack
+    environment:
+      POSTGRES_PASSWORD: 'postgres'
+
+networks:
+  fullstack:
+    driver: bridge

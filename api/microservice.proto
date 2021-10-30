@@ -1,0 +1,569 @@
+syntax = "proto3";
+
+package zen_api.v1;
+
+option go_package = "/pkg";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+
+service Microservice {
+  rpc SignIn (SignInRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/signin"
+      body: "*"
+    };
+  }
+  rpc SignUp (SignUpRequest) returns (SignUpResponse) {
+    option (google.api.http) = {
+      post: "/signup"
+      body: "*"
+    };
+  }
+  rpc Logout (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/logout"
+      body: "*"
+    };
+  }
+  rpc GetUser (GetUserRequest) returns (GetUserResponse) {
+    option (google.api.http) = {
+      get: "/user"
+    };
+  }
+  rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse) {
+    option (google.api.http) = {
+      put: "/user"
+      body: "*"
+    };
+  }
+  rpc DeleteUser (DeleteUserRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/user"
+    };
+  }
+  rpc GetCourse (GetCourseRequest) returns (GetCourseResponse) {
+    option (google.api.http) = {
+      get: "/course/{id}"
+    };
+  }
+  rpc CreateCourse (CreateCourseRequest) returns (CreateCourseResponse) {
+    option (google.api.http) = {
+      post: "/course"
+      body: "*"
+    };
+  }
+  rpc UpdateCourse (UpdateCourseRequest) returns (UpdateCourseResponse) {
+    option (google.api.http) = {
+      put: "/course"
+      body: "*"
+    };
+  }
+  rpc DeleteCourse (DeleteCourseRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/course"
+      body: "*"
+    };
+  }
+  rpc GetCourseSections (GetCourseSectionsRequest) returns (GetCourseSectionsResponse) {
+    option (google.api.http) = {
+      get: "/sections"
+    };
+  }
+  rpc CreateCourseSection (CreateCourseSectionRequest) returns (CreateCourseSectionResponse) {
+    option (google.api.http) = {
+      post: "/section"
+      body: "*"
+    };
+  }
+  rpc UpdateCourseSection (UpdateCourseSectionRequest) returns (UpdateCourseSectionResponse) {
+    option (google.api.http) = {
+      put: "/section"
+      body: "*"
+    };
+  }
+  rpc DeleteCourseSection (DeleteCourseSectionRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/section"
+    };
+  }
+  rpc GetIndicators (google.protobuf.Empty) returns (GetIndicatorsResponse) {
+    option (google.api.http) = {
+      get: "/indicators"
+    };
+  }
+  rpc CreateIndicator (CreateIndicatorRequest) returns (CreateIndicatorResponse) {
+    option (google.api.http) = {
+      post: "/indicator"
+      body: "*"
+    };
+  }
+  rpc UpdateIndicator (UpdateIndicatorRequest) returns (UpdateIndicatorResponse) {
+    option (google.api.http) = {
+      put: "/indicator"
+      body: "*"
+    };
+  }
+  rpc DeleteIndicator (DeleteIndicatorRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/indicator"
+    };
+  }
+  rpc GetQuestions(google.protobuf.Empty) returns (GetQuestionsResponse) {
+    option (google.api.http) = {
+      get: "/questions"
+    };
+  }
+  rpc CreateQuestion (CreateQuestionRequest) returns (CreateQuestionResponse) {
+    option (google.api.http) = {
+      post: "/question"
+      body: "*"
+    };
+  }
+  rpc UpdateQuestion (UpdateQuestionRequest) returns (UpdateQuestionResponse) {
+    option (google.api.http) = {
+      put: "/question"
+      body: "*"
+    };
+  }
+  rpc DeleteQuestion (DeleteQuestionRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/question"
+    };
+  }
+  rpc GetAnswers(google.protobuf.Empty) returns (GetAnswersResponse) {
+    option (google.api.http) = {
+      get: "/answers"
+    };
+  }
+  rpc CreateAnswer (CreateAnswerRequest) returns (CreateAnswerResponse) {
+    option (google.api.http) = {
+      post: "/answer"
+      body: "*"
+    };
+  }
+  rpc UpdateAnswer (UpdateAnswerRequest) returns (UpdateAnswerResponse) {
+    option (google.api.http) = {
+      put: "/answer"
+      body: "*"
+    };
+  }
+  rpc DeleteAnswer (DeleteAnswerRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/answer"
+    };
+  }
+  rpc GetPoll (google.protobuf.Empty) returns (GetPollResponse) {
+    option (google.api.http) = {
+      get: "/poll"
+    };
+  }
+  rpc GetScore (google.protobuf.Empty) returns (GetScoreResponse) {
+    option (google.api.http) = {
+      get: "/score"
+    };
+  }
+  rpc UpsertScore (UpsertScoreRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/score"
+      body: "*"
+    };
+  }
+  rpc GetIndicatorsScore (google.protobuf.Empty) returns (GetIndicatorScoreResponse) {
+    option (google.api.http) = {
+      get: "/indicators-score"
+    };
+  }
+  rpc GetReviews (GetReviewsRequest) returns (GetReviewsResponse) {
+    option (google.api.http) = {
+      get: "/review/{course_id}"
+    };
+  }
+  rpc UpsertReview (UpsertReviewRequest) returns (UpsertReviewResponse) {
+    option (google.api.http) = {
+      post: "/review"
+      body: "*"
+    };
+  }
+  rpc DeleteReview (DeleteReviewRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/review"
+    };
+  }
+  rpc EmailVerification (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/email-verification"
+      body: "*"
+    };
+  }
+  rpc EmailVerificationCheckCode (EmailVerificationCheckCodeRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/email-check-code"
+      body: "*"
+    };
+  }
+  rpc UploadFile (UploadFileRequest) returns (UploadFileResponse) {
+    option (google.api.http) = {
+      post: "/upload"
+      body: "*"
+    };
+  }
+  rpc DeleteFile (DeleteFileRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/delete"
+    };
+  }
+  rpc Payment (PaymentRequest) returns (PaymentResponse) {
+    option (google.api.http) = {
+      post: "/payment"
+      body: "*"
+    };
+  }
+}
+
+message PaymentRequest {
+    int64 courseID = 1;
+}
+
+message PaymentResponse {
+    int64 id = 1;
+    string status = 2;
+}
+
+message DeleteFileRequest {
+  string file_path = 1;
+}
+
+message UploadFileRequest {
+  bytes file = 1;
+}
+
+message UploadFileResponse {
+  string file_path = 1;
+}
+
+message EmailVerificationCheckCodeRequest {
+  int64 code = 1;
+}
+
+message DeleteReviewRequest {
+  int64 id = 1;
+  int64 course_id = 2;
+}
+
+message UpsertReviewRequest {
+  int64 course_id = 1;
+  string feedback = 2;
+}
+
+message UpsertReviewResponse {
+  int64 id = 1;
+}
+
+message GetReviewsRequest {
+  int64 course_id = 1;
+}
+
+message GetReviewsResponse {
+  repeated Reviews reviews = 1;
+  message Reviews {
+    string firstname = 1;
+    string lastname = 2;
+    string feedback = 3;
+    google.protobuf.Timestamp created_at = 4;
+  }
+}
+
+message GetIndicatorScoreResponse {
+  repeated IndicatorScore indicator_score = 1;
+  message IndicatorScore {
+    int64 id = 1;
+    string title = 2;
+    string description = 3;
+    int64 score = 4;
+  }
+}
+
+message GetScoreResponse {
+  repeated Score score = 1;
+}
+
+message Score {
+  int64 id = 1;
+  int64 indicator_id = 2;
+  int64 score = 3;
+}
+
+message IndicatorScore {
+  int64 indicator_id = 1;
+  string title = 2;
+  int64 score = 3;
+}
+
+message UpsertScoreRequest {
+  repeated IndicatorScore indicator_score = 1;
+}
+
+message GetPollResponse {
+  repeated Question questions = 1;
+  message Question {
+    int64 id = 1;
+    int64 indicator_id = 2;
+    string title = 3;
+    repeated Answer answers = 4;
+    message Answer {
+      int64 id = 1;
+      int64 question_id = 2;
+      string answer = 3;
+      int64 score = 4;
+    }
+  }
+}
+
+message DeleteAnswerRequest {
+  int64 id = 1;
+}
+
+message UpdateAnswerRequest {
+  int64 id = 1;
+  string answer = 2;
+  int64 score = 3;
+}
+
+message UpdateAnswerResponse {
+  int64 id = 1;
+  int64 question_id = 2;
+  string answer = 3;
+  int64 score = 4;
+}
+
+message CreateAnswerRequest {
+  int64 question_id = 1;
+  string answer = 2;
+  int64 score = 3;
+}
+
+message CreateAnswerResponse {
+  int64 id = 1;
+}
+
+message GetAnswersResponse {
+  repeated Answer answers = 1;
+  message Answer {
+    int64 id = 1;
+    int64 question_id = 2;
+    string answer = 3;
+    int64 score = 4;
+  }
+}
+
+message DeleteQuestionRequest {
+  int64 id = 1;
+}
+
+message UpdateQuestionRequest {
+  int64 id = 1;
+  string title = 2;
+}
+
+message UpdateQuestionResponse {
+  int64 id = 1;
+  string title = 2;
+}
+
+message CreateQuestionRequest {
+  int64 indicator_id = 1;
+  string title = 2;
+}
+
+message CreateQuestionResponse {
+  int64 id = 1;
+}
+
+message GetQuestionsResponse {
+  repeated Question questions = 1;
+  message Question {
+    int64 id = 1;
+    int64 indicator_id = 2;
+    string title = 3;
+  }
+}
+
+message Indicator {
+  int64 id = 1;
+  string title = 2;
+  string description = 3;
+}
+
+message GetIndicatorsResponse {
+  repeated Indicator indicators = 1;
+}
+
+message CreateIndicatorRequest {
+  string title = 1;
+  string description = 2;
+}
+
+message CreateIndicatorResponse {
+  int64 id = 1;
+}
+
+message UpdateIndicatorRequest {
+  int64 id = 1;
+  string title = 2;
+  string description = 3;
+}
+
+message UpdateIndicatorResponse {
+  int64 id = 1;
+  string title = 2;
+  string description = 3;
+}
+
+message DeleteIndicatorRequest {
+  int64 id = 1;
+}
+
+message SignInRequest {
+  string email = 1 [(validate.rules).string.email = true];
+  string password = 2  [(validate.rules).string = {min_len: 8, max_len: 20}];
+}
+
+message GetUserRequest {
+  int64 id = 1;
+}
+
+message GetUserResponse {
+  int64 id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  string phone_number = 5;
+  string role = 6;
+  bool verified = 7;
+  int64 balance = 8;
+}
+
+
+
+message SignUpRequest {
+  string first_name = 1;
+  string last_name = 2;
+  string email = 3;
+  string password = 4  [(validate.rules).string = {min_len: 8, max_len: 20}];
+  string phone_number = 5;
+  string role = 6;
+}
+
+message SignUpResponse {
+  int64 id = 1;
+}
+
+message DeleteUserRequest {
+  int64 id = 1;
+}
+
+message UpdateUserRequest {
+  int64  id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  string phone_number = 5;
+}
+
+message UpdateUserResponse {
+  int64  id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email = 4;
+  string phone_number = 5;
+}
+
+message GetCourseRequest {
+  int64 id = 1;
+}
+
+message GetCourseResponse {
+  int64 id = 1;
+  int64 user_id = 2;
+  string title = 3;
+  string description = 4;
+  int64 price = 5;
+}
+
+message CreateCourseRequest {
+  string title = 1;
+  string description = 2;
+  int64 price = 3;
+}
+
+message CreateCourseResponse {
+  int64 id = 1;
+}
+
+message UpdateCourseRequest {
+  int64 course_id = 1;
+  string title = 2;
+  string description = 3;
+  int64 price = 4;
+}
+
+message UpdateCourseResponse {
+  int64 course_id = 1;
+  string title = 2;
+  string description = 3;
+  int64 price = 4;
+}
+
+message DeleteCourseRequest {
+  int64 course_id = 1;
+}
+
+message CourseSection {
+  int64  id = 1;
+  string title = 2;
+  string description = 3;
+  string file_path = 4;
+}
+
+message GetCourseSectionsRequest {
+  int64 course_id = 1;
+}
+
+message GetCourseSectionsResponse {
+  int64  course_id = 1;
+  repeated CourseSection sections = 2;
+}
+
+message CreateCourseSectionRequest {
+  int64  course_id = 1;
+  string title = 2;
+  string description = 3;
+  bytes file = 4;
+}
+
+message CreateCourseSectionResponse {
+  int64 id = 1;
+}
+
+message UpdateCourseSectionRequest {
+  int64 id = 1;
+  int64  course_id = 2;
+  string title = 3;
+  string description = 4;
+  bytes file = 5;
+}
+
+message UpdateCourseSectionResponse {
+  int64 id = 1;
+  int64  course_id = 2;
+  string title = 3;
+  string description = 4;
+  string file_name = 5;
+}
+
+message DeleteCourseSectionRequest {
+  int64 section_id = 1;
+}
