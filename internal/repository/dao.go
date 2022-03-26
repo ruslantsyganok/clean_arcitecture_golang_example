@@ -29,8 +29,7 @@ func pgQb() squirrel.StatementBuilderType {
 	return squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar).RunWith(DB)
 }
 
-func NewDAO(db *sql.DB) DAO {
-	DB = db
+func NewDAO() DAO {
 	return &dao{}
 }
 
